@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Todo Save</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat|Poppins&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" charset="utf-8"></script>
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    </head>
+     <body>
+       <div class="navbar">
+            <div class="inner">
+                <div class="left"><p>TODO APP</p></div>
+                <div class="right" th:switch="${userInfo}">
+                    <i class="fas fa-user"></i><p th:text="${userInfo.userName}"></p>
+                    <i class="fas fa-door-open"></i><a href="/logout">Logout</a>
+                </div>
+            </div>
+        </div>
+     	<div class="container my-5" style=" padding:0px 20px; background:transparent;">
+            <h2 class="mb-4">Add Todo</h2>
+            <div class="row">
+                <div class="col-md-12">
+                    <form th:action="@{/user/todosave}"  th:object="${todoContext}" method="POST">
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <input type="hidden" class="form-control" th:value="${userInfo.userId}"  th:name="userId" th:id="userId">
+                                <label for="todoInfo" class="col-form-label">Todo Info</label>
+                                <input type="text" class="form-control" th:name="todoInfo" th:id="todoInfo" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="number" class="col-form-label">Todo Date</label>
+                                <input type="date" class="form-control" th:name="todoDate" th:id="todoDate" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="mt-2 mx-auto">
+                                <input type="submit" class="btn btn-success" value="Kaydet">
+                            </div>
+                        </div>
+                    </form>          
+                </div>
+            </div>
+       	</div>
+    </body>
+     <script th:inline="javascript">
+            $(function(){
+                $('[type="date').prop('min', function(){
+                    var date = new Date();
+                    date.setDate(date.getDate()+1);
+                   return date.toJSON().split('T')[0];
+                });
+            });
+    </script>
+</html>

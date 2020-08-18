@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Login Page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat|Poppins&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    </head>
+     <body style="min-height: 100vh; background-image:linear-gradient(270deg,#2C3034,#212529);">
+        <div class="login">
+            <h2>LOGIN</h2>
+            <form action="/login" method="post">
+           		<span style="color:#fff; font-size:14px">Username</span>
+                <input class="logintxt" type="text" id="username" name="username" placeholder="mert37">
+				<span style="color:#fff; font-size:14px">Password</span>
+                <input class="logintxt" type="password" id="password" name="password" placeholder="3737">
+                <input class="logbtn" type="submit" value="Login">
+            </form>
+        </div>
+    </body>
+</html>

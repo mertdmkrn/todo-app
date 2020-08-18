@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>User Page</title>
+      	<meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat|Poppins&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+   		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" charset="utf-8"></script>
+    </head>
+     <body>
+          <div class="navbar">
+            <div class="inner">
+                <div class="left"><p>TODO APP</p></div>
+                <div class="right" th:switch="${userInfo}">
+                    <i class="fas fa-user"></i><p th:text="${userInfo.userName}"></p>
+                    <i class="fas fa-door-open"></i><a href="/logout">Logout</a>
+                </div>
+            </div>
+        </div>
+         
+         <div th:switch="${todoList}" class="list">
+	            <div class="row">
+	                <div class="col-md-6 mx-auto mt-4">
+	                    <form action="/user/search">
+	                        <div class="row">
+	                            <div class="form-group col-md-8">
+	                                <span>Date</span><input type="date" name="todoDate" id="todoDate" class="form-control">
+	                            </div>
+	                            <div class="form-group col-md-3">
+	                                &nbsp<input type="submit" class="form-control btn btn-outline-success" value="Search">
+	                            </div>
+	                        </div>
+	                    </form>
+	                </div>
+	            </div>
+	            <p th:if="${bilgi!=null}" id="haber" style=" float:none; display:block; width:100%; margin:0 auto; text-align:center; font-weight:400; font-size:14px; padding:15px;  color: #00529B; background-color: #BDE5F8;" th:text="${bilgi}"></p><br>
+	            <p>Todo List</p>
+	            <a href="/user/todosave">Add Todo</a>
+	            <h2 th:case="null">Todo Yok</h2>
+           		<div th:case="*">
+		            <table class="table table-striped table-dark">
+		                <thead>
+		                <tr>
+		                    <th scope="col">#</th>
+		                    <th scope="col">User</th>
+		                    <th scope="col">Todo</th>
+		                    <th scope="col">Date</th>
+		                    <th scope="col">Status</th>
+		                    <th scope="col"></th>
+		                </tr>
+		                </thead>
+		                <tbody>
+			                <tr th:each="todo : ${todoList}">
+			                    <th scope="row"><span th:text="${todo.todoId}"></span></th>
+			                    <td><span th:text="${todo.user.userName}"></span></td>
+			                    <td><span th:text="${todo.todoInfo}"></span></td>
+			                    <td><span id="todoDate" th:text="${todo.todoDate}"></span></td>
+			                    <td><span th:text="${todo.todoStatus}"></span></td>
+			                    <td>
+			                    	<div th:if="${todo.todoStatus!='Tamamlandı'}"> 
+			                    		<a style="background:transparent; margin:0; color:#fff; padding:0;" th:href="@{/user/todoupdate?id={id}(id=${todo.todoId})}"><i class="fas fa-edit"></i></a>
+	                    				<a onclick="return confirm('Emin misiniz?');" style="background:transparent; margin:0; color:#fff; padding:0;" th:href="@{/user/tododelete?id={id}(id=${todo.todoId})}"><i class="fas fa-trash-alt"></i></a>
+			                    	</div>
+			                    </td>
+			                </tr>
+		                </tbody>
+		            </table>
+		    	</div>
+        </div>
+   </body>
+     <script th:inline="javascript">
+     	   setTimeout(function() {
+        		  $('#haber').hide()
+        		}, 3000);
+        </script>
+</html>
